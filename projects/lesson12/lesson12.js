@@ -1,0 +1,1 @@
+let myarr = ["lộc", "Lộc top 1", 25]
