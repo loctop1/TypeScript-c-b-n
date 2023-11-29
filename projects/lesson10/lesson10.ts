@@ -1,6 +1,6 @@
 // Ví dụ về Type Boolean
 let status1: boolean = false;
 let check1: boolean = true;
-let pro: boolean = Boolean('')
+let pro1: boolean = Boolean('')
 
-console.log(">>> check pro: ", pro)
+console.log(">>> check pro: ", pro1)
