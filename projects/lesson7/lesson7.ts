@@ -1,7 +1,7 @@
 // Ví dụ về type Inference
-let count: string = 'Nguyên Tuấn Lộc';
+let count1: string = 'Nguyên Tuấn Lộc';
 
-console.log('>>>check count 0 = ', count)
+console.log('>>>check count 0 = ', count1)
 
 let test = ['eric', 'Nguyễn Tuấn Lộc', 'typescripts', 96]
 
