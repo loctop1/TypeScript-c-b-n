@@ -1,4 +1,4 @@
-// Ví dụ về Annotations
+// Ví dụ về type Annotations
 let count2: number;
 
 count2 = 10;
