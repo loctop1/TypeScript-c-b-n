@@ -1,12 +1,35 @@
-//lesson 24 Ví dụ về vòng lặp Do While
+//lesson 25
+//1. Sử dụng TypeScript break để kết thúc vòng lặp
+let products = [
+    { name: 'phone', price: 700 },
+    { name: 'tablet', price: 900 },
+    { name: 'laptop', price: 1200 }
+];
+for (let i = 0; i < products.length; i++) {
+    if (products[i].price == 900)
+        break;
+    console.log(products[i]);
+}
 
-/**Lặp do-while trong TypeScript tương tự như trong JavaScript. Điều này có nghĩa là khối mã trong do sẽ được thực thi ít nhất 
- * một lần, sau đó kiểm tra điều kiện trong while. Nếu điều kiện vẫn đúng, nó sẽ tiếp tục lặp. */
-let counter2 = 6
-do {
-    console.log('Counter = ', counter2);
-    if (counter2 % 2 === 1) break;
-    counter2++;
-} while (counter2 < 5);
-/**Điều kiện kiểm tra trong while là counter2 < 5, trong khi bạn đã sử dụng break nếu counter2 % 2 === 1. Do đó, đoạn mã sẽ dừng 
- * ngay sau lần lặp đầu tiên vì counter2 là số chẵn (6). */
+//2. Sử dụng break bên trong switch...case
+let products2 = [
+    { name: 'phone', price: 700 },
+    { name: 'tablet', price: 900 },
+    { name: 'laptop', price: 1200 }
+];
+let discount2 = 0;
+let product = products[1];
+switch (product.name) {
+    case 'phone':
+        discount2 = 5;
+        break;
+    case 'tablet':
+        discount2 = 10;
+        // break;
+    case 'laptop':
+        discount2 = 15;
+        // break;
+    default:
+        discount2 = 100;
+}
+console.log(`There is a ${discount2}% on ${product.name}.`);
