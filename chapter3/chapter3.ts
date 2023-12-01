@@ -1,22 +1,14 @@
-//lesson 28 Ví dụ về Function Type
+//lesson 29 Ví dụ về Optional Parameters
 
-/**Trong TypeScript, Function Type là một loại kiểu dữ liệu đặc biệt được sử dụng để định nghĩa kiểu 
- * dữ liệu cho các hàm. Function Type định nghĩa cụ thể các loại tham số đầu vào và kiểu dữ liệu của 
- * giá trị trả về từ hàm. Điều này giúp kiểm soát kiểu dữ liệu của các hàm trong quá trình phát triển 
- * ứng dụng TypeScript, giúp phát hiện lỗi và cung cấp tính linh hoạt. */
-const sum3 = (x: number, y: number): number => {
+/**Optional Parameters trong TypeScript là một tính năng cho phép bạn định nghĩa các tham số của một 
+ * hàm mà không yêu cầu bắt buộc truyền giá trị cho chúng khi gọi hàm. Trong TypeScript, bạn có thể 
+ * đặt dấu hỏi (?) sau tên tham số để chỉ định rằng tham số đó là tùy chọn. */
+const sum6 = (x: number, y: number, z?: number) => {
+    if (z) return x + y + z;
     return x + y;
 }
-/**Hàm sum3 là một ví dụ của Function Type được định nghĩa bằng cách sử dụng cú pháp của arrow function.
- * Nó có hai tham số kiểu số (x và y) và kiểu giá trị trả về là số (number). */
-
-function sum4(x: number, y: number): number {
-    return x + y;
-}
-/**Hàm sum4 là một ví dụ khác, được định nghĩa bằng cách sử dụng cú pháp thông thường của function 
- * declaration. Nó cũng có hai tham số kiểu số và kiểu giá trị trả về là số.*/
-
-console.log(">>> check sum3 = ", sum3(1, 10))
-
-let a = 10;
-a = sum3(1, 10)
+/**Trong hàm sum6, tham số z được đặt là tùy chọn bằng cách sử dụng z?: number. Điều này có nghĩa là 
+ * bạn có thể gọi hàm sum6 mà không cần truyền giá trị cho z. Nếu bạn không truyền giá trị cho z, thì 
+ * tham số đó sẽ nhận giá trị mặc định là undefined. Trong phần thân của hàm, bạn kiểm tra xem z có 
+ * giá trị không (if (z)) để quyết định xem có tính z vào kết quả hay không. */
+console.log(">>> check sum6 = ", sum6(2, 5), sum6(1, 2, 3))
