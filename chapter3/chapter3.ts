@@ -1,18 +1,37 @@
-//lesson 30 Ví dụ về Default Parameters
+//lesson 31 Ví dụ về Rest Parameters
 
-/**Default Parameters trong TypeScript là một tính năng cho phép bạn đặt giá trị mặc định cho một hoặc 
- * nhiều tham số của hàm. Khi bạn gọi hàm và không truyền giá trị cho tham số đó, giá trị mặc định sẽ 
- * được sử dụng. */
-let sum8 = (x: number, y: number, z = false) => {
-    if (z === false) {
-        return x + y;
-    }
-    if (z)
-        return x - y;
+/**Rest parameters là một tính năng trong TypeScript (cũng như trong JavaScript) giúp định nghĩa hàm với một số lượng tham số 
+ * không xác định trước đó. Trong TypeScript, rest parameter được ký hiệu bằng dấu ba chấm (...) theo sau của một tên tham số, và 
+ * nó sẽ biến đổi các tham số sau nó thành một mảng. Rest parameter chỉ được đặt cuối cùng trong danh sách tham số của hàm. */
+function getTotal(...numbers: number[]): number {
+    let total = 0;
+    numbers.forEach((num) => total += num);
+    return total;
 }
-/**Ở đây, tham số z có giá trị mặc định là false. Khi bạn gọi sum8(1, 2), giá trị của z sẽ là false vì 
- * bạn không truyền giá trị nào cho tham số này. Trong trường hợp này, hàm sẽ thực hiện phần xử lý tính
- * tổng của x và y.
- * Khi bạn gọi sum8(1, 2, true), giá trị của z sẽ là true do bạn đã truyền giá trị cho tham số này. 
- * Trong trường hợp này, hàm sẽ thực hiện phần xử lý tính hiệu của x và y. */
-console.log(">>> check sum8 = ", sum8(1, 2), sum8(1, 2, true))
+console.log(getTotal()); // 0
+console.log(getTotal(10, 20)); // 30
+console.log(getTotal(10, 20, 30)); // 60
+
+// Ví dụ 2
+function multiply(n: number, ...m: number[]) {
+    let a = m.map((x) => {
+        console.log("check x = ", x)
+        return n * x
+    });
+    return m.map((x) => n * x);
+}
+//'test31' gets value[10, 20, 30, 40]
+const test31 = multiply(15, 1, 2, 3, 4);
+console.log('>>> check test31 = ', test31)
+
+//Ví dụ 3
+function Greet(greeting: string, ...names: string[]) {
+    return greeting + " " + names.join(", ") + "!";
+}
+console.log(Greet("Hello", "Steve", "Bill")); // returns "Hello Steve, Bill!"
+console.log(Greet("Hello"));// returns "Hello !"
+/**Trong hàm Greet, greeting là một tham số bắt buộc, còn names là một mảng rest parameter. Khi bạn gọi hàm Greet, bạn có thể 
+ * truyền vào bất kỳ số lượng tên nào và chúng sẽ được đưa vào mảng names. Trong trường hợp của bạn, Greet("Hello", "Steve", 
+ * "Bill") sẽ gán "Hello" cho greeting và ["Steve", "Bill"] cho names.
+ * Greet("Hello"), là một cách sử dụng khi không có tên nào được truyền vào. Trong trường hợp này, mảng names sẽ rỗng, và kết quả 
+ * sẽ là "Hello !". */
