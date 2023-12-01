@@ -1,3 +1,15 @@
+//lesson 27 Ví dụ về Function
+function sum(a: number, b: number) {
+    return a + b
+}
+
+//anonymous function
+const sum2 = (a: number, b: number) => {
+    return a + b
+}
+
+console.log('>>> check sum: ', sum2(6, 9))
+
 // lesson 26 Ví dụ về Continue
 
 /**Trong TypeScript (và JavaScript), continue là một từ khóa được sử dụng để bỏ qua phần còn lại của vòng lặp hiện tại và chuyển đến lần lặp tiếp theo.*/
