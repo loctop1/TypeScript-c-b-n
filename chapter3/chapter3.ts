@@ -1,37 +1,63 @@
-//lesson 31 Ví dụ về Rest Parameters
+//lesson 32 Ví dụ về Function Overloading
 
-/**Rest parameters là một tính năng trong TypeScript (cũng như trong JavaScript) giúp định nghĩa hàm với một số lượng tham số 
- * không xác định trước đó. Trong TypeScript, rest parameter được ký hiệu bằng dấu ba chấm (...) theo sau của một tên tham số, và 
- * nó sẽ biến đổi các tham số sau nó thành một mảng. Rest parameter chỉ được đặt cuối cùng trong danh sách tham số của hàm. */
-function getTotal(...numbers: number[]): number {
-    let total = 0;
-    numbers.forEach((num) => total += num);
-    return total;
+/**Trong TypeScript, khái niệm overloading (nạp chồng) liên quan đến khả năng định nghĩa nhiều hình thức khác nhau của một hàm hoặc phương thức với cùng một tên 
+ * nhưng với các loại tham số khác nhau. Sử dụng dạng overloading giúp bạn mô tả rõ ràng hơn cách sử dụng của phương thức trong các tình huống khác nhau. Khi bạn 
+ * gọi phương thức với hoặc không có tham số hoặc với một tham số, TypeScript sẽ xác định cách thức chính xác của phương thức để gọi dựa trên số và kiểu tham số 
+ * bạn chọn. */
+function addNumbers(a: number, b: number): number {
+    return a + b;
 }
-console.log(getTotal()); // 0
-console.log(getTotal(10, 20)); // 30
-console.log(getTotal(10, 20, 30)); // 60
+function addStrings(a: string, b: string): string {
+    return a + b;
+}
 
-// Ví dụ 2
-function multiply(n: number, ...m: number[]) {
-    let a = m.map((x) => {
-        console.log("check x = ", x)
-        return n * x
-    });
-    return m.map((x) => n * x);
+//2 functions làm nhiệm vụ tương tự nhau => có thể gồm thành 1 với union type
+function add(a: number | string, b: number | string) {
+    if (typeof a === 'number' && typeof b === 'number')
+        return a + b;
+    if (typeof a === 'string' && typeof b === 'string')
+        return a + b;
 }
-//'test31' gets value[10, 20, 30, 40]
-const test31 = multiply(15, 1, 2, 3, 4);
-console.log('>>> check test31 = ', test31)
 
-//Ví dụ 3
-function Greet(greeting: string, ...names: string[]) {
-    return greeting + " " + names.join(", ") + "!";
+//OverLoading
+function addNew(a: number, b: number): number;
+
+function addNew(a: string, b: string): string;
+
+function addNew(a: any, b: any) {
+    return a + b;
+};
+
+console.log(">>> check add new: ", addNew(6, 9), addNew('Nguyễn Tuấn Lộc', ' và Lộc top 1'))
+
+//Ví dụ 2
+class Counter {
+    private current: number = 0;
+    /**Đây là thuộc tính private của lớp Counter, được sử dụng để theo dõi giá trị hiện tại của đối tượng. */
+    count(): number;
+    /** Phương thức không nhận tham số và trả về một số nguyên. */
+    count(target: number): number[];
+    /**Phương thức này nhận một tham số kiểu số (target) và trả về một mảng các số nguyên từ this.current đến target. */
+    count(target?: number): number | number[] {
+        /**Đây là phần thân của phương thức count, nó kết hợp cả hai hình thức trên. Nếu có tham số được truyền vào, nó tạo và trả về mảng các số, ngược lại tăng 
+         * giá trị của this.current và trả về giá trị mới. */
+        if (target) {
+            let values: number[] = [];
+            /**Tạo một mảng để lưu trữ các số từ this.current đến target. */
+            for (let start = this.current; start <= target; start++) {
+                values.push(start);
+            }
+            /**Dùng vòng lặp để thêm các số từ this.current đến target vào mảng values. */
+            return values;
+            /**Trả về mảng các số nếu có tham số được truyền vào. */
+        }
+        return ++this.current;
+        /**Nếu không có tham số, tăng giá trị của this.current và trả về giá trị mới. */
+    }
 }
-console.log(Greet("Hello", "Steve", "Bill")); // returns "Hello Steve, Bill!"
-console.log(Greet("Hello"));// returns "Hello !"
-/**Trong hàm Greet, greeting là một tham số bắt buộc, còn names là một mảng rest parameter. Khi bạn gọi hàm Greet, bạn có thể 
- * truyền vào bất kỳ số lượng tên nào và chúng sẽ được đưa vào mảng names. Trong trường hợp của bạn, Greet("Hello", "Steve", 
- * "Bill") sẽ gán "Hello" cho greeting và ["Steve", "Bill"] cho names.
- * Greet("Hello"), là một cách sử dụng khi không có tên nào được truyền vào. Trong trường hợp này, mảng names sẽ rỗng, và kết quả 
- * sẽ là "Hello !". */
+let counter111 = new Counter(); //Tạo một đối tượng của lớp Counter.
+console.log(counter111.count()); // return a number
+/**TypeScript sẽ hiểu rằng đây là gọi hình thức đầu tiên và trả về một số nguyên. */
+console.log(counter111.count(20)); // return an array
+/**TypeScript sẽ hiểu rằng đây là gọi hình thức thứ hai và trả về một mảng các số nguyên từ 1 đến 20. */
+
