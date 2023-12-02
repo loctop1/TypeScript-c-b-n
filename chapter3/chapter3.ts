@@ -1,4 +1,4 @@
-//lesson 34 Ví dụ về Access Modifiers
+//lesson 34 Ví dụ về Access Modifiers ...
 
 /**Access modifiers trong TypeScript là các từ khóa đặt trước các thành phần của một lớp (class) để quy định mức độ truy cập của chúng từ các phạm vi khác nhau. 
  * TypeScript hỗ trợ ba access modifiers chính: public, private, và protected.
