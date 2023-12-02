@@ -1,27 +1,43 @@
-//lesson33 Ví dụ về Classes
+//lesson 34 Ví dụ về Access Modifiers
 
-/**Trong TypeScript, khái niệm "Classes" là một phần quan trọng của hệ thống hướng đối tượng, giúp bạn tổ chức mã nguồn của mình theo cách dễ hiểu và dễ bảo trì. 
- * Một class trong TypeScript là một mô hình để tạo ra các đối tượng (instances) có các thuộc tính (properties) và phương thức (methods) liên quan. */
-class Person {
-    ssn: string;
-    firstName: string;
-    lastName: string;
-    /**Khai báo các thuộc tính của class Person. */
+/**Access modifiers trong TypeScript là các từ khóa đặt trước các thành phần của một lớp (class) để quy định mức độ truy cập của chúng từ các phạm vi khác nhau. 
+ * TypeScript hỗ trợ ba access modifiers chính: public, private, và protected.
+ * Public (public): Các thành phần có access modifier public có thể truy cập từ bất kỳ nơi nào, không có sự hạn chế.
+ * Private (private): Các thành phần có access modifier private chỉ có thể truy cập bên trong cùng một lớp. Không thể truy cập từ bên ngoài lớp.
+ * Protected (protected): Các thành phần có access modifier protected giống như private, nhưng cũng có thể được truy cập từ các lớp con.*/
 
-    constructor(ssn: string, firstName: string, lastName: string) {
-        this.ssn = ssn;
-        this.firstName = firstName;
-        this.lastName = lastName;
+//Ví dụ 1: Public và private
+class Employee {
+    public empCode: string;
+    private empName: string;
+    constructor(empCode: string, empName: string) {
+        this.empCode = empCode;
+        this.empName = empName;
     }
-    /**Hàm khởi tạo (constructor) của class, được gọi khi một đối tượng mới của class được tạo. Hàm này thực hiện việc khởi tạo giá trị cho các thuộc tính của đối 
-     * tượng. */
-    getFullName(): string {
-        return `Call Method: ${this.firstName} ${this.lastName}`;
+}
+let emp = new Employee(' abc', ' cde');
+// emp.empCode = "123";
+// emp.empName = "Nguyễn Tuấn Lộc";
+
+console.log(">>> check emp: ", emp)
+
+//Ví dụ 2: Protected
+class Employee1 {
+    public empName: string;
+    public empCode: string;
+    constructor(name: string, code: string) {
+        this.empName = name;
+        this.empCode = code;
     }
-    /**Phương thức của class, trả về một chuỗi kết hợp của firstName và lastName. */
 }
 
-let loctop1 = new Person("123", "Nguyễn Tuấn Lộc", " và LộcTop1")
-/**Tạo một đối tượng mới của class Person và truyền các tham số vào hàm khởi tạo để khởi tạo giá trị của các thuộc tính. */
-console.log(">>> check classes: ", loctop1.getFullName())
-/**Gọi phương thức getFullName của đối tượng loctop1 và in kết quả ra console. */
+class SalesEmployee extends Employee1 {
+    private department: string;
+    constructor(name: string, code: string, department: string) {
+        super(name, code);
+        this.department = department;
+    }
+}
+let emp1 = new SalesEmployee("John Smith", "123", "Sales");
+emp1.empCode; //Compiler Error
+console.log(">>> check emp1: ", emp1)
