@@ -1,12 +1,37 @@
-//lesson 35 Ví dụ về Readonly
+//lesson 36 Ví dụ về Getters và Setters
 
-/**Trong TypeScript, readonly là một từ khóa được sử dụng để đánh dấu một thành viên của một đối tượng (object) hoặc một phần tử trong một mảng là chỉ đọc. Khi 
- * một biến hoặc thuộc tính được đánh dấu là readonly, nó chỉ có thể được gán giá trị một lần và không thể thay đổi giá trị sau khi đã được gán. */
-class Person1 {
-    readonly birthDate: Date;
-    constructor(birthDate: Date) {
-        this.birthDate = birthDate;
+/**Trong TypeScript, getters và setters là cách để kiểm soát quyền truy cập và thực hiện các hành động tùy chỉnh khi đọc và ghi giá trị của thuộc tính trong một 
+ * lớp.
+ * Getter là một phương thức được sử dụng để lấy giá trị của một thuộc tính. Đối với một thuộc tính có getter, bạn sử dụng cú pháp giống như khi truy cập một 
+ * thuộc tính thông thường. Điều này giúp ẩn đi triển khai thực tế của thuộc tính và cho phép bạn thực hiện xử lý hoặc tính toán trước khi trả về giá trị.
+ * Setter là một phương thức được sử dụng để thiết lập giá trị của một thuộc tính. Đối với một thuộc tính có setter, bạn có thể gán giá trị mới cho nó giống như 
+ * khi gán giá trị cho một thuộc tính thông thường. Nhưng trong trường hợp setter, phương thức được gọi và bạn có thể thực hiện các kiểm tra hoặc xử lý trước khi 
+ * gán giá trị. */
+class Person2 {
+    public _age: number;
+    public firstName: string;
+    public lastName: string;
+
+    constructor(_age: number, firstName: string, lastName: string) {
+        this._age = _age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    //getter
+    getAge() {
+        return this._age
+    }
+    //setter
+    set age(age2: number) {
+        if (age2 < 0 || age2 > 150) {
+            throw Error('Tuổi ko hợp lệ!')
+        }
+        this._age = age2
     }
 }
-let person = new Person1(new Date(1990, 12, 25));
-person.birthDate = new Date(1991, 12, 25); // Compile error
+let person2 = new Person2(25, 'Nguyễn Tuấn Lộc', 'LộcTop1');
+let checkAge = person2.age; //getter
+person2.age = 150; //setter
+console.log(">>> check age: ", person2) //getter
+
+// person2.age = 26;
